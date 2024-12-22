@@ -31,4 +31,12 @@ mod tests {
         let bytes = pass.get_raw_bytes();
         assert_eq!(bytes[15], 1);
     }
+
+    #[test]
+    fn should_set_first_and_last_bits_to_1() {
+        let mut pass = Password::new();
+        assert!(!pass.set_bit(127).is_err());
+        assert!(!pass.set_bit(120).is_err());
+        assert_eq!(pass.get_raw_bytes()[15], 129);
+    }
 }
