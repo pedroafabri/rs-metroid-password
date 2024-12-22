@@ -15,7 +15,7 @@ impl Password {
         &self.bytes
     }
 
-    pub fn set_byte(&mut self, byte: u8, new_value: u8) -> Result<(), ByteOutOfBoundsError> {
+    pub fn set_byte_value(&mut self, byte: u8, new_value: u8) -> Result<(), ByteOutOfBoundsError> {
         if byte > 17 { return Err(ByteOutOfBoundsError); }
 
         self.bytes[byte as usize] = new_value;
