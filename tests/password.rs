@@ -56,9 +56,18 @@ mod tests {
     #[test]
     fn should_clear_last_bit_of_byte() {
         let mut pass = Password::new();
-        assert!(!pass.set_bit(127).is_err());
+        assert!(!pass.set_byte(15, 0xFF).is_err());
         assert!(!pass.clear_bit(127).is_err());
-        assert_eq!(pass.get_raw_bytes()[15], 0);
+        assert_eq!(pass.get_raw_bytes()[15], 0b11111110);
+    }
+
+    #[test]
+    fn should_clear_first_and_last_bits_of_byte() {
+        let mut pass = Password::new();
+        assert!(!pass.set_byte(15, 0xFF).is_err());
+        assert!(!pass.clear_bit(120).is_err());
+        assert!(!pass.clear_bit(127).is_err());
+        assert_eq!(pass.get_raw_bytes()[15], 0b01111110);
     }
 
 }

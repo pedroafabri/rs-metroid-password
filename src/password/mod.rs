@@ -41,8 +41,9 @@ impl Password {
         let byte = self.get_byte_from_bit(&bit);
         let bit = self.get_relative_bit(&bit);
         let shifts = self.get_needed_shifts(&bit);
+        let mask = (0x01 << shifts) ^ 0xFF;
 
-        self.bytes[byte as usize] &= 0xFE << shifts;
+        self.bytes[byte as usize] &= mask;
 
         Ok(())
     }
