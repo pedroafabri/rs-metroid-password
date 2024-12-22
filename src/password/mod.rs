@@ -116,6 +116,13 @@ mod tests {
     }
 
     #[test]
+    fn should_return_error_when_clearing_bit_out_of_bounds() {
+        let mut pass = Password::new();
+        let r = pass.clear_bit(128);
+        assert!(matches!(r, Err(BitOutOfBoundsError)));
+    }
+
+    #[test]
     fn should_clear_last_bit_of_byte() {
         let mut pass = Password::new();
         pass.bytes[15] = 0xFF;
