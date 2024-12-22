@@ -22,8 +22,20 @@ impl Password {
         let bit = self.get_relative_bit(&bit);
         let shifts = self.get_needed_shifts(&bit);
 
-        self.bytes[byte as usize] |= 1 << shifts;
+        self.bytes[byte as usize] |= 0x01 << shifts;
         
+        Ok(())
+    }
+
+    pub fn clear_bit(&mut self, bit: u8) -> Result<(), BitOutOfBoundsError> {
+        if bit > 127 { return Err(BitOutOfBoundsError); }
+
+        let byte = self.get_byte_from_bit(&bit);
+        let bit = self.get_relative_bit(&bit);
+        let shifts = self.get_needed_shifts(&bit);
+
+        self.bytes[byte as usize] &= 0xFE << shifts;
+
         Ok(())
     }
 

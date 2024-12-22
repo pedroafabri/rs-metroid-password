@@ -24,7 +24,7 @@ mod tests {
     }
 
     #[test]
-    fn should_set_last_bit_to_1() {
+    fn should_set_last_bit_of_byte() {
         let mut pass = Password::new();
         let r = pass.set_bit(127);
         assert!(!r.is_err());
@@ -33,10 +33,18 @@ mod tests {
     }
 
     #[test]
-    fn should_set_first_and_last_bits_to_1() {
+    fn should_set_first_and_last_bits_of_byte() {
         let mut pass = Password::new();
         assert!(!pass.set_bit(127).is_err());
         assert!(!pass.set_bit(120).is_err());
         assert_eq!(pass.get_raw_bytes()[15], 129);
+    }
+
+    #[test]
+    fn should_clear_last_bit_of_byte() {
+        let mut pass = Password::new();
+        assert!(!pass.set_bit(127).is_err());
+        assert!(!pass.clear_bit(127).is_err());
+        assert_eq!(pass.get_raw_bytes()[15], 0);
     }
 }
