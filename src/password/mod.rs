@@ -1,4 +1,4 @@
-use crate::errors::BitOutOfBoundsError;
+use crate::errors::{BitOutOfBoundsError, ByteOutOfBoundsError};
 
 pub struct Password {
     bytes: [u8; 18]
@@ -13,6 +13,14 @@ impl Password {
 
     pub fn get_raw_bytes(&self) -> &[u8; 18] {
         &self.bytes
+    }
+
+    pub fn set_byte(&mut self, byte: u8, new_value: u8) -> Result<(), ByteOutOfBoundsError> {
+        if byte > 17 { return Err(ByteOutOfBoundsError); }
+
+        self.bytes[byte as usize] = new_value;
+
+        Ok(())
     }
 
     pub fn set_bit(&mut self, bit: u8) -> Result<(), BitOutOfBoundsError> {
