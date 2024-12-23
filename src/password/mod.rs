@@ -140,16 +140,59 @@ mod tests {
     }
 
     #[test]
-    fn should_get_byte_from_bit() {
+    fn should_get_byte_from_bit_10() {
         let password = Password::new();
 
         let byte = password.get_byte_from_bit(&10);
         assert_eq!(byte, 1);
+    }
 
+    #[test]
+    fn should_get_byte_from_bit_19() {
+        let password = Password::new();
         let byte = password.get_byte_from_bit(&19);
         assert_eq!(byte, 2);
+    }
 
+    #[test]
+    fn should_get_byte_from_bit_23() {
+        let password = Password::new();
         let byte = password.get_byte_from_bit(&23);
         assert_eq!(byte, 2);
+    }
+
+    #[test]
+    fn should_get_bit_relative_to_14() {
+        let pass = Password::new();
+        let relative_bit = pass.get_relative_bit(&14);
+        assert_eq!(relative_bit, 6);
+    }
+
+    #[test]
+    fn should_get_bit_relative_to_121() {
+        let pass = Password::new();
+        let relative_bit = pass.get_relative_bit(&121);
+        assert_eq!(relative_bit, 1);
+    }
+
+    #[test]
+    fn should_get_shifts_needed_for_bit_3() {
+        let pass = Password::new();
+        let shifts = pass.get_needed_shifts(&3);
+        assert_eq!(shifts, 4);
+    }
+
+    #[test]
+    fn should_get_shifts_needed_for_bit_1() {
+        let pass = Password::new();
+        let shifts = pass.get_needed_shifts(&1);
+        assert_eq!(shifts, 6);
+    }
+
+    #[test]
+    fn should_get_shifts_needed_for_bit_7() {
+        let pass = Password::new();
+        let shifts = pass.get_needed_shifts(&7);
+        assert_eq!(shifts, 0);
     }
 }
