@@ -10,6 +10,7 @@ A Rust crate for generating and manipulating NES Metroid passwords.
 - [X] set_bit function
 - [X] clear_bit function
 - [X] set byte value
+- [ ] create checksum
 - [ ] encode password
 
 ## Password Operations module

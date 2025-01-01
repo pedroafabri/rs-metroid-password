@@ -48,6 +48,15 @@ impl Password {
         Ok(())
     }
 
+    fn calculate_checksum(&self) -> u8 {
+        let sum : u16 = self.bytes
+            .iter()
+            .take(17)
+            .map(|&x| x as u16)
+            .sum();
+        (sum & 0xFF) as u8
+    }
+
     fn get_byte_from_bit(&self, bit: &u8) -> u8 {
         bit / 8
     }
@@ -194,5 +203,21 @@ mod tests {
         let pass = Password::new();
         let shifts = pass.get_needed_shifts(&7);
         assert_eq!(shifts, 0);
+    }
+
+    #[test]
+    fn should_get_correct_checksum_for_zero_bits() {
+        let pass = Password::new();
+        let checksum = pass.calculate_checksum();
+        assert_eq!(checksum, 0x00);
+    }
+
+    #[test]
+    fn should_get_correct_checksum_for_set_password() {
+        let mut pass = Password::new();
+        pass.bytes[0] = 25;
+        pass.bytes[1] = 25;
+        let checksum = pass.calculate_checksum();
+        assert_eq!(checksum, 0b00110010);
     }
 }
