@@ -1,19 +1,24 @@
 use crate::errors::{BitOutOfBoundsError, ByteOutOfBoundsError};
 
+/// 144 bits NES Metroid password
 pub struct Password {
-    high: u128,
-    low: u16
+    low: u128,
+    high: u16
 }
 
 impl Password {
+    /// Generates a new Password with zeroed bits
     pub fn new() -> Password {
         Password {
-            high: 0,
-            low: 0
+            low: 0,
+            high: 0
         }
     }
 
-    pub fn get_raw_bytes(&self) -> (u128, u16) {
+    /// Gets the raw bytes of the password.
+    /// 
+    /// It returns a `(u16, u128)` representing the `(high_byte, low_byte)` of the Password
+    pub fn get_raw_bytes(&self) -> (u16, u128) {
         (self.high, self.low)
     }
 }
